@@ -79,14 +79,14 @@ declare module '@luciancaetano/redux-websocket/websocket.actions' {
 }
 declare module '@luciancaetano/redux-websocket/websocket.middleware' {
 	import { AnyAction, MiddlewareAPI } from "redux";
-	export const middleware: any;// TODO: Fix MiddleWare Declaration
+	export const wsMiddleware: any;
 
 }
 declare module '@luciancaetano/redux-websocket' {
-	export * from '@luciancaetano/redux-websocket/websocket.reducer';
-	export * from '@luciancaetano/redux-websocket/websocket.actions';
-	export * from '@luciancaetano/redux-websocket/websocket.middleware';
-	export * from '@luciancaetano/redux-websocket/ProtocolHandler';
-	export * from '@luciancaetano/redux-websocket/types';
+	export { createReducer } from '@luciancaetano/redux-websocket/websocket.reducer';
+	export { createActions } from '@luciancaetano/redux-websocket/websocket.actions';
+	export { wsMiddleware } from '@luciancaetano/redux-websocket/websocket.middleware';
+	export { ProtocolHandler } from '@luciancaetano/redux-websocket/ProtocolHandler';
+	export { IWebsocketState, IWebsocketMiddlewareConfig } from '@luciancaetano/redux-websocket/types';
 
 }

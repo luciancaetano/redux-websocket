@@ -5,7 +5,7 @@ import { ProtocolHandler } from "./ProtocolHandler";
 
 const webSocket: { [key: string]: any } = {};
 
-export const middleware =
+export const wsMiddleware =
     (store: MiddlewareAPI<any, any>) =>
         (next: (action: any) => void) =>
             (action: AnyAction) => {

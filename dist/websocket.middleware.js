@@ -4,7 +4,7 @@ const sockette_1 = require("sockette");
 const actions_types_1 = require("./actions.types");
 const ProtocolHandler_1 = require("./ProtocolHandler");
 const webSocket = {};
-exports.middleware = (store) => (next) => (action) => {
+exports.wsMiddleware = (store) => (next) => (action) => {
     switch (action.type) {
         case actions_types_1.ActionsTypes.WS_OPENING:
             if (action.payload) {
