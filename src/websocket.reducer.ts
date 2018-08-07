@@ -31,7 +31,7 @@ export const createReducer = (connectionName: string) => {
                 };
 
                 case ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER:
-                    if (action.payload && action.payload.key && action.payload.handler &&
+                    if (typeof action.payload.key === "string" && typeof action.payload.handler === "function" &&
                         typeof state.handlers[action.payload.key] !== "function"
                     ) {
                         return {
