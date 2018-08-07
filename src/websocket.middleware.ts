@@ -70,21 +70,7 @@ export const wsMiddleware =
                     case ActionsTypes.WS_SEND:
                         webSocket[action.payload.connectionName].send(action.payload.data);
                         break;
-
-                    case ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER_REQUEST:
-                        if (typeof action.payload.handler === "function") {
-                            const hwnd = new action.payload.handler(store.getState, next);
-                            if (hwnd instanceof ProtocolHandler) {
-                                next({
-                                    type: ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER,
-                                    payload: {
-                                        type: hwnd.constructor.name,
-                                        handler: hwnd,
-                                        connectionName: action.payload.connectionName,
-                                    },
-                                });
-                            }
-                        }
-                        break;
                 }
+
+                return next(action);
             };

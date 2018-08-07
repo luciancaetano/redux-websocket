@@ -31,14 +31,14 @@ export const createReducer = (connectionName: string) => {
                 };
 
                 case ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER:
-                    if (action.payload && action.payload.type && action.payload.handler &&
-                        !(state.handlers[action.payload.type] instanceof ProtocolHandler)
+                    if (action.payload && action.payload.key && action.payload.handler &&
+                        typeof state.handlers[action.payload.key] !== "function"
                     ) {
                         return {
                             ...state,
                             handlers: {
                                 ...state.handlers,
-                                [action.payload.type]: action.payload.handler,
+                                [action.payload.key]: action.payload.handler,
                             },
                         };
                     } else {
@@ -46,13 +46,12 @@ export const createReducer = (connectionName: string) => {
                     }
 
                 case ActionsTypes.WS_DETACH_PROTOCOL_HANDLER:
-                    if (action.payload.handler
-                        && state.handlers[action.payload.handler.name] instanceof ProtocolHandler) {
+                    if (typeof state.handlers[action.payload.key] === "function") {
                         return {
                             ...state,
                             handlers: {
                                 ...state.handlers,
-                                [action.payload.handler.name]: undefined,
+                                [action.payload.key]: undefined,
                             },
                         };
                     } else {

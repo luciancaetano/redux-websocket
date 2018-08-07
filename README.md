@@ -58,35 +58,35 @@ function send(data: string | ArrayBufferLike | Blob | ArrayBufferView):Action;
 ### attachProtocolHandler
   Add a protocol handler to our websocket state
   ```typescript
-    function attachProtocolHandler(handler: typeof ProtocolHandler):Action;
+    function attachProtocolHandler(handler: ProtocolHandler, key: string):Action;
   ```
 ### detachProtocolHandler
 Remove a procol handler from our websocket state
   ```typescript
-    function attachProtocolHandler(handler: typeof ProtocolHandler):Action;
+    function attachProtocolHandler(key: string):Action;
   ```
 
 # ProtocolHandler
-```javascript
+```typescript
  import { ProtocolHandler } from '@luciancaetano/redux-websocket';
+
+ type ProtocolHandler = (message: MessageEvent, getState: any, dispatch: (action: any) => void) => void;
+
+
 ```
-One of the problems of the solutions I found regarding websocket and redux was that they did not propose me any way to treat the messages coming from the "redux" server, after much research I decided to implement an abstract class called ProtocolHandler which in its constructor receives the function getState of the store and the dispatch method, then in this class there is the abstract method called handle, which receives in its parameter a message provided from the server (MessageEvent) in this class we can treat the messages and change the state.
 
 ```javascript
 import { createActions, ProtocolHandler } from '@luciancaetano/redux-websocket';
 const actions = createActions('ws');
-
-class PongHandler extends ProtocolHandler{
-  handle(message){
+function PongHandler(message: MessageEvent, getState: any, dispatch: (action: any) => void){
     if(message.data == 'PONG'){
       alert('Server says pong');
       this.dispatch({type: 'DO_PING'});
       console.log(this.getState());
     }
-  }
 }
 // Register the PongHandler
-store.dispatch(actions.attachProtocolHandler(PongHandler))
+store.dispatch(actions.attachProtocolHandler(PongHandler, "PongHandler"))
 
 ```
 
