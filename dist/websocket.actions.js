@@ -32,20 +32,21 @@ class WsActions {
             },
         };
     }
-    attachProtocolHandler(handler) {
+    attachProtocolHandler(handler, key) {
         return {
-            type: actions_types_1.ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER_REQUEST,
+            type: actions_types_1.ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER,
             payload: {
                 handler,
+                key,
                 connectionName: this.connectionName,
             },
         };
     }
-    detachProtocolHandler(handler) {
+    detachProtocolHandler(key) {
         return {
             type: actions_types_1.ActionsTypes.WS_DETACH_PROTOCOL_HANDLER,
             payload: {
-                handler,
+                key,
                 connectionName: this.connectionName,
             },
         };

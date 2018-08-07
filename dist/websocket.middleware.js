@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const actions_types_1 = require("./actions.types");
-const ProtocolHandler_1 = require("./ProtocolHandler");
 const webSocket = {};
 exports.wsMiddleware = (store) => (next) => (action) => {
     switch (action.type) {
@@ -22,7 +21,7 @@ exports.wsMiddleware = (store) => (next) => (action) => {
                         const handlers = wsState.handlers;
                         Object.keys(handlers).forEach((key) => {
                             const handler = handlers[key];
-                            handler.handle(message);
+                            handler(message);
                         });
                     }
                     else {
@@ -52,21 +51,7 @@ exports.wsMiddleware = (store) => (next) => (action) => {
         case actions_types_1.ActionsTypes.WS_SEND:
             webSocket[action.payload.connectionName].send(action.payload.data);
             break;
-        case actions_types_1.ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER_REQUEST:
-            if (typeof action.payload.handler === "function") {
-                const hwnd = new action.payload.handler(store.getState, next);
-                if (hwnd instanceof ProtocolHandler_1.ProtocolHandler) {
-                    next({
-                        type: actions_types_1.ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER,
-                        payload: {
-                            type: hwnd.constructor.name,
-                            handler: hwnd,
-                            connectionName: action.payload.connectionName,
-                        },
-                    });
-                }
-            }
-            break;
     }
+    return next(action);
 };
 //# sourceMappingURL=websocket.middleware.js.map

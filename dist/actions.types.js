@@ -7,7 +7,6 @@ exports.ActionsTypes = {
     WS_CLOSING: "@luciancaetano/redux-websocket/[CLOSING]",
     WS_ERROR: "@luciancaetano/redux-websocket/[ERROR]",
     WS_SEND: "@luciancaetano/redux-websocket/[WRITE]",
-    WS_ATTACH_PROTOCOL_HANDLER_REQUEST: "@luciancaetano/redux-websocket/[ATTACH_PROTOCOL_HANDLER]",
     WS_ATTACH_PROTOCOL_HANDLER: "@luciancaetano/redux-websocket/[ATTACH_PROTOCOL_HANDLER]",
     WS_DETACH_PROTOCOL_HANDLER: "@luciancaetano/redux-websocket/[DETACH_PROTOCOL_HANDLER]",
 };

@@ -1,10 +1,5 @@
 declare module '@luciancaetano/redux-websocket/ProtocolHandler' {
-	export abstract class ProtocolHandler {
-	    getState: any;
-	    dispatch: (action: any) => void;
-	    constructor(getState: any, dispatch: (action: any) => void);
-	    abstract handle(message: MessageEvent): boolean;
-	}
+	export type ProtocolHandler = (message: MessageEvent, getState: any, dispatch: (action: any) => void) => void;
 
 }
 declare module '@luciancaetano/redux-websocket/actions.types' {
@@ -15,7 +10,6 @@ declare module '@luciancaetano/redux-websocket/actions.types' {
 	    WS_CLOSING: string;
 	    WS_ERROR: string;
 	    WS_SEND: string;
-	    WS_ATTACH_PROTOCOL_HANDLER_REQUEST: string;
 	    WS_ATTACH_PROTOCOL_HANDLER: string;
 	    WS_DETACH_PROTOCOL_HANDLER: string;
 	};
@@ -30,6 +24,7 @@ declare module '@luciancaetano/redux-websocket/types' {
 	    handlers: {
 	        [key: string]: ProtocolHandler;
 	    };
+	    socket: WebSocket | null;
 	}
 
 }
@@ -38,6 +33,7 @@ declare module '@luciancaetano/redux-websocket/websocket.reducer' {
 	import { IWebsocketState } from '@luciancaetano/redux-websocket/types';
 	export const createReducer: (connectionName: string) => (state?: IWebsocketState, action?: any) => {
 	    status: string;
+	    socket: any;
 	    error: boolean;
 	    errorMessage: string | null;
 	    handlers: {
@@ -50,6 +46,7 @@ declare module '@luciancaetano/redux-websocket/websocket.reducer' {
 	    handlers: {
 	        [key: string]: ProtocolHandler;
 	    };
+	    socket: WebSocket | null;
 	};
 
 }
@@ -61,8 +58,8 @@ declare module '@luciancaetano/redux-websocket/websocket.actions' {
 	    open(url: string, protocols: string | string[]): AnyAction;
 	    close(): AnyAction;
 	    send(data: string | ArrayBufferLike | Blob | ArrayBufferView): AnyAction;
-	    attachProtocolHandler(handler: typeof ProtocolHandler): AnyAction;
-	    detachProtocolHandler(handler: typeof ProtocolHandler): AnyAction;
+	    attachProtocolHandler(handler: ProtocolHandler, key: string): AnyAction;
+	    detachProtocolHandler(key: string): AnyAction;
 	}
 	export const createActions: (connectionName: string) => WsActions;
 	export {};
