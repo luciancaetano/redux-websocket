@@ -13,11 +13,11 @@ exports.wsMiddleware = (store) => (next) => (action) => {
                 const config = action.payload && action.payload.config ? action.payload.config : {};
                 webSocket[action.payload.connectionName] =
                     new WebSocket(action.payload.url, action.payload.protocols || undefined);
-                webSocket[action.payload.connectionName].onopen = (event) => next({
+                webSocket[action.payload.connectionName].addEventListener("open", (event) => next({
                     type: actions_types_1.ActionsTypes.WS_OPEN,
                     payload: { connectionName: action.payload.connectionName, event },
-                });
-                webSocket[action.payload.connectionName].onmessage = (message) => {
+                }));
+                webSocket[action.payload.connectionName].addEventListener("message", (message) => {
                     const wsState = store.getState()[action.payload.connectionName];
                     if (wsState && wsState.handlers) {
                         const handlers = wsState.handlers;
@@ -30,15 +30,15 @@ exports.wsMiddleware = (store) => (next) => (action) => {
                         console.error(`Invalid reducer passed to middleware
                                                  ${action.payload.connectionName}`);
                     }
-                };
-                webSocket[action.payload.connectionName].onclose = (event) => next({
+                });
+                webSocket[action.payload.connectionName].addEventListener("close", (event) => next({
                     type: actions_types_1.ActionsTypes.WS_CLOSED,
                     payload: { connectionName: action.payload.connectionName, event },
-                });
-                webSocket[action.payload.connectionName].onerror = (event) => next({
+                }));
+                webSocket[action.payload.connectionName].addEventListener("error", (event) => next({
                     type: actions_types_1.ActionsTypes.WS_ERROR,
                     payload: { connectionName: action.payload.connectionName, event },
-                });
+                }));
             }
             break;
         case actions_types_1.ActionsTypes.WS_CLOSING:

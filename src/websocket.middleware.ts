@@ -18,37 +18,41 @@ export const wsMiddleware =
                             webSocket[action.payload.connectionName] =
                                 new WebSocket(action.payload.url, action.payload.protocols || undefined);
 
-                            webSocket[action.payload.connectionName].onopen = (event) =>
+                            webSocket[action.payload.connectionName].addEventListener("open", (event) =>
                                 next({
                                     type: ActionsTypes.WS_OPEN,
                                     payload: { connectionName: action.payload.connectionName, event },
-                                });
+                                }),
+                            );
 
-                            webSocket[action.payload.connectionName].onmessage = (message: MessageEvent) => {
-                                const wsState = store.getState()[action.payload.connectionName];
-                                if (wsState && wsState.handlers) {
-                                    const handlers = wsState.handlers;
-                                    Object.keys(handlers).forEach((key) => {
-                                        const handler = handlers[key];
-                                        handler.handle(message);
-                                    });
-                                } else {
-                                    console.error(`Invalid reducer passed to middleware
+                            webSocket[action.payload.connectionName].addEventListener("message",
+                                (message: MessageEvent) => {
+                                    const wsState = store.getState()[action.payload.connectionName];
+                                    if (wsState && wsState.handlers) {
+                                        const handlers = wsState.handlers;
+                                        Object.keys(handlers).forEach((key) => {
+                                            const handler = handlers[key];
+                                            handler.handle(message);
+                                        });
+                                    } else {
+                                        console.error(`Invalid reducer passed to middleware
                                                  ${action.payload.connectionName}`);
-                                }
-                            };
+                                    }
+                                });
                             // close event
-                            webSocket[action.payload.connectionName].onclose = (event) =>
+                            webSocket[action.payload.connectionName].addEventListener("close", (event) =>
                                 next({
                                     type: ActionsTypes.WS_CLOSED,
                                     payload: { connectionName: action.payload.connectionName, event },
-                                });
+                                }),
+                            );
                             // error event
-                            webSocket[action.payload.connectionName].onerror = (event) =>
+                            webSocket[action.payload.connectionName].addEventListener("error", (event) =>
                                 next({
                                     type: ActionsTypes.WS_ERROR,
                                     payload: { connectionName: action.payload.connectionName, event },
-                                });
+                                }),
+                            );
                         }
                         break;
 
