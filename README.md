@@ -124,3 +124,7 @@ const store = createStore(
 );
 
 ```
+
+
+# TODO
+- Remove create reducer and set only single reducer for multiple dynamic connections
