@@ -22,16 +22,6 @@ export const createReducer = (connectionName: string) => {
                     ...state,
                     status: "CLOSED",
                 };
-                case ActionsTypes.WS_RECONNECTING: return {
-                    ...state,
-                    status: "RECONECTING",
-                };
-                case ActionsTypes.WS_RECONNECTION_MAX: return {
-                    ...state,
-                    error: true,
-                    errorMessage: "MAX_ATTEMPS",
-                    status: "MAX_ATTEMPS",
-                };
                 case ActionsTypes.WS_ERROR: return {
                     ...state,
                     error: true,

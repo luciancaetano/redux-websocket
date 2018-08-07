@@ -1,6 +1,6 @@
 {
   "name": "@luciancaetano/redux-websocket",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Redux Websocket middleware, reducer and protocol router.",
   "main": "dist/index.js",
   "typings": "index.d.ts",
@@ -19,8 +19,7 @@
   "author": "Lucian Caetano <lucian.santos.caetano@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "redux": "^4.0.0",
-    "sockette": "^2.0.0"
+    "redux": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^10.5.7",

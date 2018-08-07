@@ -55,11 +55,6 @@ const store = createStore(
 function send(data: string | ArrayBufferLike | Blob | ArrayBufferView):Action;
   ```
 
-### reconnect
-  Reconnect using last connection configuration
-  ```typescript
-    function reconnect():Action;
-  ```
 ### attachProtocolHandler
   Add a protocol handler to our websocket state
   ```typescript
@@ -102,7 +97,7 @@ See the interface:
 interface IWebsocketState {
     error: boolean;
     errorMessage: string | null;
-    status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING" | "RECONECTING" | "MAX_ATTEMPS";
+    status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING";
     handlers: {[key: string]: ProtocolHandler} ;
 }
 ```

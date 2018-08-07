@@ -1,19 +1,17 @@
 import { AnyAction } from "redux";
 import { ActionsTypes } from "./actions.types";
 import { ProtocolHandler } from "./ProtocolHandler";
-import { IWebsocketMiddlewareConfig } from "./types";
 
 class WsActions {
 
     constructor(public connectionName?: string) {}
 
-    public open(url: string, protocols: string | string[], config: IWebsocketMiddlewareConfig): AnyAction {
+    public open(url: string, protocols: string | string[]): AnyAction {
         return {
             type: ActionsTypes.WS_OPENING,
             payload: {
                 url,
                 protocols,
-                config,
                 connectionName: this.connectionName,
             },
         };
@@ -33,15 +31,6 @@ class WsActions {
             type: ActionsTypes.WS_SEND,
             payload: {
                 data,
-                connectionName: this.connectionName,
-            },
-        };
-    }
-
-    public reconnect(): AnyAction {
-        return {
-            type: ActionsTypes.WS_RECONNECTING,
-            payload: {
                 connectionName: this.connectionName,
             },
         };
