@@ -1,12 +1,15 @@
 {
   "name": "@luciancaetano/redux-websocket",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Redux Websocket middleware, reducer and protocol router.",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "private": false,
   "keywords": [
-    "redux", "websocket", "redux-websocket", "reduxwebsocket"
+    "redux",
+    "websocket",
+    "redux-websocket",
+    "reduxwebsocket"
   ],
   "scripts": {
     "build": "tsc && npm run dts",
@@ -27,8 +30,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/luciancaetano/redux-websocket.git"
-   },
-   "bugs": {
+  },
+  "bugs": {
     "url": "https://github.com/luciancaetano/redux-websocket/issues"
   },
   "homepage": "https://github.com/luciancaetano/redux-websocket#readme"
