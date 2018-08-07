@@ -32,7 +32,9 @@ export const wsMiddleware =
                                         const handlers = wsState.handlers;
                                         Object.keys(handlers).forEach((key) => {
                                             const handler = handlers[key];
-                                            handler(message);
+                                            if (typeof handler === "function") {
+                                                handler(message);
+                                            }
                                         });
                                     } else {
                                         console.error(`Invalid reducer passed to middleware
