@@ -1,6 +1,5 @@
 import { AnyAction, Middleware, MiddlewareAPI } from "redux";
 import { ActionsTypes } from "./actions.types";
-import { ProtocolHandler } from "./ProtocolHandler";
 
 const webSocket: { [key: string]: WebSocket } = {};
 
@@ -33,7 +32,7 @@ export const wsMiddleware =
                                         const handlers = wsState.handlers;
                                         Object.keys(handlers).forEach((key) => {
                                             const handler = handlers[key];
-                                            handler.handle(message);
+                                            handler(message);
                                         });
                                     } else {
                                         console.error(`Invalid reducer passed to middleware
