@@ -15,17 +15,18 @@ export const wsMiddleware =
                                 webSocket[action.payload.connectionName].close();
                             }
                             const config = action.payload && action.payload.config ? action.payload.config : {};
-                            webSocket[action.payload.connectionName] =
+
+                            const socket =
                                 new WebSocket(action.payload.url, action.payload.protocols || undefined);
 
-                            webSocket[action.payload.connectionName].addEventListener("open", (event) =>
+                            socket.addEventListener("open", (event) =>
                                 next({
                                     type: ActionsTypes.WS_OPEN,
-                                    payload: { connectionName: action.payload.connectionName, event },
+                                    payload: { connectionName: action.payload.connectionName, event, socket },
                                 }),
                             );
 
-                            webSocket[action.payload.connectionName].addEventListener("message",
+                            socket.addEventListener("message",
                                 (message: MessageEvent) => {
                                     const wsState = store.getState()[action.payload.connectionName];
                                     if (wsState && wsState.handlers) {
@@ -40,19 +41,21 @@ export const wsMiddleware =
                                     }
                                 });
                             // close event
-                            webSocket[action.payload.connectionName].addEventListener("close", (event) =>
+                            socket.addEventListener("close", (event) =>
                                 next({
                                     type: ActionsTypes.WS_CLOSED,
                                     payload: { connectionName: action.payload.connectionName, event },
                                 }),
                             );
                             // error event
-                            webSocket[action.payload.connectionName].addEventListener("error", (event) =>
+                            socket.addEventListener("error", (event) =>
                                 next({
                                     type: ActionsTypes.WS_ERROR,
                                     payload: { connectionName: action.payload.connectionName, event },
                                 }),
                             );
+
+                            webSocket[action.payload.connectionName] = socket;
                         }
                         break;
 
@@ -65,7 +68,7 @@ export const wsMiddleware =
                         break;
 
                     case ActionsTypes.WS_SEND:
-                        webSocket[action.payload.connectionName].send(action.payload);
+                        webSocket[action.payload.connectionName].send(action.payload.data);
                         break;
 
                     case ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER_REQUEST:

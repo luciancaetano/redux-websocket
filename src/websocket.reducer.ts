@@ -9,6 +9,7 @@ export const createReducer = (connectionName: string) => {
         errorMessage: null,
         status: "CLOSED",
         handlers: {},
+        socket: null,
     };
 
     return (state = initialState, action: any = {}) => {
@@ -17,6 +18,7 @@ export const createReducer = (connectionName: string) => {
                 case ActionsTypes.WS_OPEN: return {
                     ...state,
                     status: "OPEN",
+                    socket: action.payload.socket,
                 };
                 case ActionsTypes.WS_CLOSED: return {
                     ...state,

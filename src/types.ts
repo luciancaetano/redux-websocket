@@ -5,4 +5,5 @@ export interface IWebsocketState {
     errorMessage: string | null;
     status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING";
     handlers: {[key: string]: ProtocolHandler} ;
+    socket: WebSocket | null;
 }
