@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const sockette_1 = require("sockette");
 const actions_types_1 = require("./actions.types");
 const ProtocolHandler_1 = require("./ProtocolHandler");
 const webSocket = {};
@@ -12,51 +11,39 @@ exports.wsMiddleware = (store) => (next) => (action) => {
                     webSocket[action.payload.connectionName].close();
                 }
                 const config = action.payload && action.payload.config ? action.payload.config : {};
-                webSocket[action.payload.connectionName] = new sockette_1.default(action.payload.url, {
-                    protocols: action.payload.protocols || undefined,
-                    timeout: config.timeout || 1000,
-                    maxAttempts: config.maxAttempts || Infinity,
-                    onopen: (event) => next({
-                        type: actions_types_1.ActionsTypes.WS_OPEN,
-                        payload: { connectionName: action.payload.connectionName, event },
-                    }),
-                    onmessage: (message) => {
-                        const wsState = store.getState()[action.payload.connectionName];
-                        if (wsState && wsState.handlers) {
-                            const handlers = wsState.handlers;
-                            Object.keys(handlers).forEach((key) => {
-                                const handler = handlers[key];
-                                handler.handle(message);
-                            });
-                        }
-                        else {
-                            console.error(`Invalid reducer passed to middleware
+                webSocket[action.payload.connectionName] =
+                    new WebSocket(action.payload.url, action.payload.protocols || undefined);
+                webSocket[action.payload.connectionName].onopen = (event) => next({
+                    type: actions_types_1.ActionsTypes.WS_OPEN,
+                    payload: { connectionName: action.payload.connectionName, event },
+                });
+                webSocket[action.payload.connectionName].onmessage = (message) => {
+                    const wsState = store.getState()[action.payload.connectionName];
+                    if (wsState && wsState.handlers) {
+                        const handlers = wsState.handlers;
+                        Object.keys(handlers).forEach((key) => {
+                            const handler = handlers[key];
+                            handler.handle(message);
+                        });
+                    }
+                    else {
+                        console.error(`Invalid reducer passed to middleware
                                                  ${action.payload.connectionName}`);
-                        }
-                    },
-                    onreconnect: (event) => next({
-                        type: actions_types_1.ActionsTypes.WS_RECONNECTING,
-                        payload: { connectionName: action.payload.connectionName, event },
-                    }),
-                    onmaximum: (event) => next({
-                        type: actions_types_1.ActionsTypes.WS_RECONNECTION_MAX,
-                        payload: { connectionName: action.payload.connectionName, event },
-                    }),
-                    onclose: (event) => next({
-                        type: actions_types_1.ActionsTypes.WS_CLOSED,
-                        payload: { connectionName: action.payload.connectionName, event },
-                    }),
-                    onerror: (event) => next({
-                        type: actions_types_1.ActionsTypes.WS_ERROR,
-                        payload: { connectionName: action.payload.connectionName, event },
-                    }),
+                    }
+                };
+                webSocket[action.payload.connectionName].onclose = (event) => next({
+                    type: actions_types_1.ActionsTypes.WS_CLOSED,
+                    payload: { connectionName: action.payload.connectionName, event },
+                });
+                webSocket[action.payload.connectionName].onerror = (event) => next({
+                    type: actions_types_1.ActionsTypes.WS_ERROR,
+                    payload: { connectionName: action.payload.connectionName, event },
                 });
             }
             break;
         case actions_types_1.ActionsTypes.WS_CLOSING:
             if (webSocket[action.payload.connectionName]) {
                 webSocket[action.payload.connectionName].close();
-                webSocket[action.payload.connectionName] = null;
             }
             else {
                 console.warn("Socket is closed");
@@ -64,9 +51,6 @@ exports.wsMiddleware = (store) => (next) => (action) => {
             break;
         case actions_types_1.ActionsTypes.WS_SEND:
             webSocket[action.payload.connectionName].send(action.payload);
-            break;
-        case actions_types_1.ActionsTypes.WS_RECONNECT:
-            webSocket[action.payload.connectionName].reconnect();
             break;
         case actions_types_1.ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER_REQUEST:
             if (typeof action.payload.handler === "function") {

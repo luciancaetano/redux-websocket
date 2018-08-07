@@ -11,9 +11,6 @@ declare module '@luciancaetano/redux-websocket/actions.types' {
 	export const ActionsTypes: {
 	    WS_OPENING: string;
 	    WS_OPEN: string;
-	    WS_RECONNECT: string;
-	    WS_RECONNECTING: string;
-	    WS_RECONNECTION_MAX: string;
 	    WS_CLOSED: string;
 	    WS_CLOSING: string;
 	    WS_ERROR: string;
@@ -29,14 +26,10 @@ declare module '@luciancaetano/redux-websocket/types' {
 	export interface IWebsocketState {
 	    error: boolean;
 	    errorMessage: string | null;
-	    status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING" | "RECONECTING" | "MAX_ATTEMPS";
+	    status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING";
 	    handlers: {
 	        [key: string]: ProtocolHandler;
 	    };
-	}
-	export interface IWebsocketMiddlewareConfig {
-	    timeout?: number;
-	    maxAttempts?: number;
 	}
 
 }
@@ -53,7 +46,7 @@ declare module '@luciancaetano/redux-websocket/websocket.reducer' {
 	} | {
 	    error: boolean;
 	    errorMessage: any;
-	    status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING" | "RECONECTING" | "MAX_ATTEMPS";
+	    status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING";
 	    handlers: {
 	        [key: string]: ProtocolHandler;
 	    };
@@ -62,14 +55,12 @@ declare module '@luciancaetano/redux-websocket/websocket.reducer' {
 }
 declare module '@luciancaetano/redux-websocket/websocket.actions' {
 	import { AnyAction } from "redux";
-	import { ProtocolHandler } from '@luciancaetano/redux-websocket/ProtocolHandler';
-	import { IWebsocketMiddlewareConfig } from '@luciancaetano/redux-websocket/types'; class WsActions {
+	import { ProtocolHandler } from '@luciancaetano/redux-websocket/ProtocolHandler'; class WsActions {
 	    connectionName?: string | undefined;
 	    constructor(connectionName?: string | undefined);
-	    open(url: string, protocols: string | string[], config: IWebsocketMiddlewareConfig): AnyAction;
+	    open(url: string, protocols: string | string[]): AnyAction;
 	    close(): AnyAction;
 	    send(data: string | ArrayBufferLike | Blob | ArrayBufferView): AnyAction;
-	    reconnect(): AnyAction;
 	    attachProtocolHandler(handler: typeof ProtocolHandler): AnyAction;
 	    detachProtocolHandler(handler: typeof ProtocolHandler): AnyAction;
 	}
@@ -87,6 +78,6 @@ declare module '@luciancaetano/redux-websocket' {
 	export { createActions } from '@luciancaetano/redux-websocket/websocket.actions';
 	export { wsMiddleware } from '@luciancaetano/redux-websocket/websocket.middleware';
 	export { ProtocolHandler } from '@luciancaetano/redux-websocket/ProtocolHandler';
-	export { IWebsocketState, IWebsocketMiddlewareConfig } from '@luciancaetano/redux-websocket/types';
+	export { IWebsocketState } from '@luciancaetano/redux-websocket/types';
 
 }

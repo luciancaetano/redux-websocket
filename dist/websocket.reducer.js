@@ -14,8 +14,6 @@ exports.createReducer = (connectionName) => {
             switch (action.type) {
                 case actions_types_1.ActionsTypes.WS_OPEN: return Object.assign({}, state, { status: "OPEN" });
                 case actions_types_1.ActionsTypes.WS_CLOSED: return Object.assign({}, state, { status: "CLOSED" });
-                case actions_types_1.ActionsTypes.WS_RECONNECTING: return Object.assign({}, state, { status: "RECONECTING" });
-                case actions_types_1.ActionsTypes.WS_RECONNECTION_MAX: return Object.assign({}, state, { error: true, errorMessage: "MAX_ATTEMPS", status: "MAX_ATTEMPS" });
                 case actions_types_1.ActionsTypes.WS_ERROR: return Object.assign({}, state, { error: true, errorMessage: action.payload.event });
                 case actions_types_1.ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER:
                     if (action.payload && action.payload.type && action.payload.handler &&

@@ -3,9 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ActionsTypes = {
     WS_OPENING: "@luciancaetano/redux-websocket/[OPENING]",
     WS_OPEN: "@luciancaetano/redux-websocket/[OPEN]",
-    WS_RECONNECT: "@luciancaetano/redux-websocket/[RECONNECT]",
-    WS_RECONNECTING: "@luciancaetano/redux-websocket/[RECONNECTING]",
-    WS_RECONNECTION_MAX: "@luciancaetano/redux-websocket/[RECONNECTION_MAX]",
     WS_CLOSED: "@luciancaetano/redux-websocket/[CLOSED]",
     WS_CLOSING: "@luciancaetano/redux-websocket/[CLOSING]",
     WS_ERROR: "@luciancaetano/redux-websocket/[ERROR]",

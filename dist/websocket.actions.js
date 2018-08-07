@@ -5,13 +5,12 @@ class WsActions {
     constructor(connectionName) {
         this.connectionName = connectionName;
     }
-    open(url, protocols, config) {
+    open(url, protocols) {
         return {
             type: actions_types_1.ActionsTypes.WS_OPENING,
             payload: {
                 url,
                 protocols,
-                config,
                 connectionName: this.connectionName,
             },
         };
@@ -29,14 +28,6 @@ class WsActions {
             type: actions_types_1.ActionsTypes.WS_SEND,
             payload: {
                 data,
-                connectionName: this.connectionName,
-            },
-        };
-    }
-    reconnect() {
-        return {
-            type: actions_types_1.ActionsTypes.WS_RECONNECTING,
-            payload: {
                 connectionName: this.connectionName,
             },
         };
