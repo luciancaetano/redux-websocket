@@ -11,10 +11,11 @@ exports.middleware = (store) => (next) => (action) => {
                 if (webSocket[action.payload.connectionName]) {
                     webSocket[action.payload.connectionName].close();
                 }
+                const config = action.payload && action.payload.config ? action.payload.config : {};
                 webSocket[action.payload.connectionName] = new sockette_1.default(action.payload.url, {
                     protocols: action.payload.protocols || undefined,
-                    timeout: action.payload.config.timeout || 1000,
-                    maxAttempts: action.payload.config.maxAttempts || Infinity,
+                    timeout: config.timeout || 1000,
+                    maxAttempts: config.maxAttempts || Infinity,
                     onopen: (event) => next({
                         type: actions_types_1.ActionsTypes.WS_OPEN,
                         payload: { connectionName: action.payload.connectionName, event },

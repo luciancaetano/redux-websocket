@@ -15,13 +15,14 @@ export const middleware =
                             if (webSocket[action.payload.connectionName]) {
                                 webSocket[action.payload.connectionName].close();
                             }
+                            const config = action.payload && action.payload.config ? action.payload.config : {};
                             webSocket[action.payload.connectionName] = new Sockette(action.payload.url, {
                                 // WS Protocols
                                 protocols: action.payload.protocols || undefined,
                                 // Connection timeout
-                                timeout: action.payload.config.timeout || 1000,
+                                timeout: config.timeout || 1000,
                                 // Max connections attempls
-                                maxAttempts: action.payload.config.maxAttempts || Infinity,
+                                maxAttempts: config.maxAttempts || Infinity,
                                 // open event
                                 onopen: (event) =>
                                     next({
