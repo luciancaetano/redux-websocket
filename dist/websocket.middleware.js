@@ -22,7 +22,7 @@ exports.wsMiddleware = (store) => (next) => (action) => {
                         Object.keys(handlers).forEach((key) => {
                             const handler = handlers[key];
                             if (typeof handler === "function") {
-                                handler(message);
+                                handler(message, store.getState, store.dispatch);
                             }
                         });
                     }
