@@ -21,10 +21,10 @@ import rootReducer from './reducers/index';
 
 // Note: this API requires redux@>=3.1.0
 const store = createStore(
-  {
+  combineReducers({
     ...rootReducer,
     ws: createReducer('ws')
-  },
+  }),
   applyMiddleware(wsMiddleware)
 );
 ```
@@ -120,11 +120,11 @@ import rootReducer from './reducers/index';
  const actionsConn2 = createActions('ws2');
 // Note: this API requires redux@>=3.1.0
 const store = createStore(
-  {
+  combineReducers({
     ...rootReducer,
     ws1: cc('ws1'),
     ws2: createReducer('ws2'),
-  },
+  }),
   applyMiddleware(wsMiddleware)
 );
 

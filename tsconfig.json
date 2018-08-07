@@ -23,7 +23,7 @@
     "types": [
       "node"
     ],
-    "outDir": "build"
+    "outDir": "dist"
   },
   "awesomeTypescriptLoaderOptions":{
     "useCache": true
