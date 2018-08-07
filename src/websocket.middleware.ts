@@ -33,7 +33,7 @@ export const wsMiddleware =
                                         Object.keys(handlers).forEach((key) => {
                                             const handler = handlers[key];
                                             if (typeof handler === "function") {
-                                                handler(message);
+                                                handler(message, store.getState, store.dispatch);
                                             }
                                         });
                                     } else {
