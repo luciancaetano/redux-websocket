@@ -1,0 +1,19 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:latest"],
+  "jsRules": {},
+  "rules": {
+    "variable-name": false,
+    "function-name": false,
+    "jsx-no-lambda": false,
+    "import-name": false,
+    "prefer-array-literal": false,
+    "jsx-boolean-value": false,
+    "object-literal-sort-keys": false,
+    "no-submodule-imports": false,
+    "no-implicit-dependencies": false,
+    "no-reference": false,
+    "no-console": false
+  },
+  "rulesDirectory": []
+}
