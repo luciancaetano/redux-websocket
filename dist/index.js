@@ -5,5 +5,6 @@ function __export(m) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./websocket.reducer"));
 __export(require("./websocket.actions"));
+__export(require("./websocket.middleware"));
 __export(require("./ProtocolHandler"));
 //# sourceMappingURL=index.js.map

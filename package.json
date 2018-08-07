@@ -1,6 +1,6 @@
 {
   "name": "@luciancaetano/redux-websocket",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Redux Websocket middleware, reducer and protocol router.",
   "main": "dist/index.js",
   "typings": "index.d.ts",
@@ -13,7 +13,7 @@
     "reduxwebsocket"
   ],
   "scripts": {
-    "build": "tsc && npm run dts",
+    "build": "tsc",
     "dts": "dts-generator --name @luciancaetano/redux-websocket --project . --out index.d.ts"
   },
   "author": "Lucian Caetano <lucian.santos.caetano@gmail.com>",
