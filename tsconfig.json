@@ -14,13 +14,12 @@
     "strictNullChecks": true,
     "preserveConstEnums": true,
     "sourceMap": true,
-    "rootDirs": ["src", "stories"],
     "lib": [
       "es2015",
       "es2016",
       "dom"
     ],
-    "baseUrl": "src",
+    "baseUrl": ".",
     "types": [
       "node"
     ],

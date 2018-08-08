@@ -10,7 +10,7 @@ class WsActions {
             type: actions_types_1.ActionsTypes.WS_OPENING,
             payload: {
                 url,
-                protocols,
+                protocols: protocols || undefined,
                 connectionName: this.connectionName,
             },
         };
@@ -52,5 +52,6 @@ class WsActions {
         };
     }
 }
+exports.WsActions = WsActions;
 exports.createActions = (connectionName) => new WsActions(connectionName);
 //# sourceMappingURL=websocket.actions.js.map
