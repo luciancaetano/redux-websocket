@@ -1,3 +1,4 @@
+import { EventEmitter } from "events";
 import { ProtocolHandler } from "./ProtocolHandler";
 
 export interface IWebsocketState {
@@ -6,4 +7,5 @@ export interface IWebsocketState {
     status: "OPEN" | "OPENING" | "CLOSED" | "CLOSING";
     handlers: {[key: string]: ProtocolHandler} ;
     socket: WebSocket | null;
+    /* rpc?: EventEmitter; */
 }

@@ -2,16 +2,16 @@ import { AnyAction } from "redux";
 import { ActionsTypes } from "./actions.types";
 import { ProtocolHandler } from "./ProtocolHandler";
 
-class WsActions {
+export class WsActions {
 
     constructor(public connectionName?: string) {}
 
-    public open(url: string, protocols: string | string[]): AnyAction {
+    public open(url: string, protocols?: string | string[]): AnyAction {
         return {
             type: ActionsTypes.WS_OPENING,
             payload: {
                 url,
-                protocols,
+                protocols : protocols || undefined,
                 connectionName: this.connectionName,
             },
         };

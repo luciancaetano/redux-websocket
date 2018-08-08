@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const events_1 = require("events");
 const actions_types_1 = require("./actions.types");
 exports.createReducer = (connectionName) => {
     const initialState = {
@@ -8,6 +9,7 @@ exports.createReducer = (connectionName) => {
         status: "CLOSED",
         handlers: {},
         socket: null,
+        rpc: new events_1.EventEmitter(),
     };
     return (state = initialState, action = {}) => {
         if (action.payload && action.payload.connectionName === connectionName) {
