@@ -1,6 +1,6 @@
 {
   "name": "@luciancaetano/redux-websocket",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "Redux Websocket middleware, reducer and protocol router.",
   "main": "dist/index.js",
   "typings": "index.d.ts",
@@ -16,7 +16,7 @@
     "build": "tsc",
     "dts": "dts-generator --name @luciancaetano/redux-websocket --project . --out index.d.ts",
     "start": "start-storybook -p 9001 -c .storybook",
-    "storybook": "build-storybook -c .storybook -o .out"
+    "storybook": "build-storybook -c .storybook -o storybook_static"
   },
   "author": "Lucian Caetano <lucian.santos.caetano@gmail.com>",
   "license": "MIT",
