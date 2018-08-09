@@ -39,13 +39,35 @@ const store = createStore(
  const actions = createActions('ws');
 ```
 ### Open
-  The open action initializes a new connection via the websocket if it does not already exist.
+  The open action initializes a new connection;
+  ` If has a previous open connection then closes and open new `
   ```typescript
-   interface IWebsocketMiddlewareConfig {
-        timeout?: number;
-        maxAttempts?: number;
+    /**
+     * Interface used to handle the messages between client and server
+     * Ex encode/decode to json or msgpack
+     */
+    export interface IFilterInterface {
+        /** This function is used to encode message */
+        encode: (message: any) => any | Promise<any>;
+        /** This function is used to decode message */
+        decode: (message: MessageEvent) => any | Promise<any>;
+        /** Use handlers on JSON RPC calls */
+        // useOnRPC?: boolean;
     }
-    function open(url: string, protocols: string | string[], config: IWebsocketMiddlewareConfig):Action
+    /**
+     * Socket connection configuration
+     */
+    export interface ISocketOpenConfig {
+        /** Websocket Binary type default is blob */
+        binaryType?: "blob" | "arraybuffer";
+        /** Protocols used by websocket */
+        protocols?: string | string[] | undefined;
+        /** Handle socket messages ex encode and decode to json */
+        filter?: IFilterInterface;
+        /** Use Json RPC calls */
+        // jsonRPC?: boolean;
+    }
+    function open(url: string, config: ISocketOpenConfig):Action
   ```
 ### Close()
   The close action closes the connection
