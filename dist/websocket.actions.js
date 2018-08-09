@@ -5,12 +5,12 @@ class WsActions {
     constructor(connectionName) {
         this.connectionName = connectionName;
     }
-    open(url, protocols) {
+    open(url, skConfig) {
         return {
             type: actions_types_1.ActionsTypes.WS_OPENING,
             payload: {
                 url,
-                protocols: protocols || undefined,
+                config: skConfig || null,
                 connectionName: this.connectionName,
             },
         };

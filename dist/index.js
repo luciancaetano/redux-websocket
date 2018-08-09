@@ -7,4 +7,6 @@ exports.createActions = websocket_actions_1.createActions;
 exports.WsActions = websocket_actions_1.WsActions;
 var websocket_middleware_1 = require("./websocket.middleware");
 exports.wsMiddleware = websocket_middleware_1.wsMiddleware;
+var utils_1 = require("./utils");
+exports.JSonFilter = utils_1.JSonFilter;
 //# sourceMappingURL=index.js.map
