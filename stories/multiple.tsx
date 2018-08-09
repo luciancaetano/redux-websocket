@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { IWebsocketState, WsActions } from "../src";
 import * as Components from "./components";
+import simpleHandler from "./handler";
 
 interface IProps {
     state: {
@@ -18,9 +19,7 @@ class ConnectWs2 extends React.Component<IProps, any> {
      * Here We attach a simple protocol handler
      */
     public componentDidMount() {
-        this.dispatch(this.actions.attachProtocolHandler((message, getState, dispatch) => {
-            dispatch({type: "LOG2_ADD", text: `Server say's "${message.data}"`});
-        }, "SimpleHandler"));
+        this.dispatch(this.actions.attachProtocolHandler(simpleHandler, simpleHandler.name));
     }
 
     get actions(): WsActions {
@@ -89,9 +88,7 @@ class ConnectWs1 extends React.Component<IProps, any> {
      * Here We attach a simple protocol handler
      */
     public componentDidMount() {
-        this.dispatch(this.actions.attachProtocolHandler((message, getState, dispatch) => {
-            dispatch({type: "LOG_ADD", text: `Server say's "${message.data}"`});
-        }, "SimpleHandler"));
+        this.dispatch(this.actions.attachProtocolHandler(simpleHandler, simpleHandler.name));
     }
 
     get actions(): WsActions {

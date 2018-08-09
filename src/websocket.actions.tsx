@@ -1,17 +1,18 @@
 import { AnyAction } from "redux";
 import { ActionsTypes } from "./actions.types";
 import { ProtocolHandler } from "./ProtocolHandler";
+import { ISocketOpenConfig } from "./types";
 
 export class WsActions {
 
-    constructor(public connectionName?: string) {}
+    constructor(public connectionName?: string) { }
 
-    public open(url: string, protocols?: string | string[]): AnyAction {
+    public open(url: string, skConfig?: ISocketOpenConfig): AnyAction {
         return {
             type: ActionsTypes.WS_OPENING,
             payload: {
                 url,
-                protocols : protocols || undefined,
+                config: skConfig || null,
                 connectionName: this.connectionName,
             },
         };
@@ -36,7 +37,7 @@ export class WsActions {
         };
     }
 
-    public attachProtocolHandler(handler: ProtocolHandler, key: string): AnyAction {
+    public attachProtocolHandler(handler: ProtocolHandler<MessageEvent | any>, key: string): AnyAction {
         return {
             type: ActionsTypes.WS_ATTACH_PROTOCOL_HANDLER,
             payload: {

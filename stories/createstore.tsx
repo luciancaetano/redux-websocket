@@ -5,6 +5,7 @@ export const store = createStore(
     combineReducers({
         ws: createReducer("ws"),
         ws2: createReducer("ws2"),
+        ws3: createReducer("ws3"),
         log: (s: string = "", a: AnyAction) => {
             switch (a.type) {
                 case "LOG_ADD": return `${s}\n${a.text}`;
