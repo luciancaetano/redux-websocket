@@ -1,5 +1,6 @@
 ## Demonstration
-See Storybook working on [https://luciancaetano.github.io/redux-websocket](https://luciancaetano.github.io/redux-websocket)
+- [Storybook](https://luciancaetano.github.io/redux-websocket)
+- [Realtime Todo](https://redux-websocket-todo-app.herokuapp.com/)
 
 ## Motivation
 Doing a lot of research I did not find anything very solid about working with Redux and WebSocket, so I started some tests and came up with some conclusions that helped me get started in this library which controls the connection by a middleware, the state by the reducer and the messages from the server by a protocol handler.
