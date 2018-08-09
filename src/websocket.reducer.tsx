@@ -1,4 +1,3 @@
-import { EventEmitter } from "events";
 import { ActionsTypes } from "./actions.types";
 import { ProtocolHandler } from "./ProtocolHandler";
 import { IWebsocketState } from "./types";
@@ -11,7 +10,6 @@ export const createReducer = (connectionName: string) => {
         status: "CLOSED",
         handlers: {},
         socket: null,
-        /* rpc: new EventEmitter(), */
     };
 
     return (state = initialState, action: any = {}) => {

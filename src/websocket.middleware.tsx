@@ -74,7 +74,6 @@ export const createMiddleware =
                                                                     data,
                                                                     store.getState,
                                                                     store.dispatch,
-                                                                    socket,
                                                                 ))
                                                                 .catch((reason) =>
                                                                     console.error(reason || "Failed to decode data"));
@@ -83,7 +82,6 @@ export const createMiddleware =
                                                                 decoded,
                                                                 store.getState,
                                                                 store.dispatch,
-                                                                socket,
                                                             );
                                                         }
                                                     } else {
@@ -91,7 +89,6 @@ export const createMiddleware =
                                                             message,
                                                             store.getState,
                                                             store.dispatch,
-                                                            socket,
                                                         );
                                                     }
                                                 } else {

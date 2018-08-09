@@ -64,8 +64,6 @@ const store = createStore(
         protocols?: string | string[] | undefined;
         /** Handle socket messages ex encode and decode to json */
         filter?: IFilterInterface;
-        /** Use Json RPC calls */
-        // jsonRPC?: boolean;
     }
     function open(url: string, config: ISocketOpenConfig):Action
   ```
@@ -92,6 +90,7 @@ Remove a procol handler from our websocket state
   ```
 
 # ProtocolHandler
+Protocols Handlers are functions that receive message, getState function and a dispatcher.
 ```typescript
  import { ProtocolHandler } from '@luciancaetano/redux-websocket';
 
@@ -149,7 +148,3 @@ const store = createStore(
 );
 
 ```
-
-
-# TODO
-- Remove create reducer and set only single reducer for multiple dynamic connections

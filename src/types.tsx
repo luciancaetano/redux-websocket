@@ -1,4 +1,3 @@
-import { EventEmitter } from "events";
 import { ProtocolHandler } from "./ProtocolHandler";
 
 export interface IWebsocketState {
@@ -17,8 +16,6 @@ export interface IFilterInterface {
     encode: (message: any) => any | Promise<any>;
     /** This function is used to decode message */
     decode: (message: MessageEvent) => any | Promise<any>;
-    /** Use handlers on JSON RPC calls */
-    // useOnRPC?: boolean;
 }
 /**
  * Socket connection configuration
@@ -30,6 +27,4 @@ export interface ISocketOpenConfig {
     protocols?: string | string[] | undefined;
     /** Handle socket messages ex encode and decode to json */
     filter?: IFilterInterface;
-    /** Use Json RPC calls */
-    // jsonRPC?: boolean;
 }

@@ -14,16 +14,18 @@ interface IProps {
 }
 
 const toHexString = (bytes) =>
-  bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, "0"));
+    bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, "0"));
 
 const binaryFilter: IFilterInterface = {
     encode: (m: any) => {
-        const data = String(m);
-        const buf = new Uint8Array(data.length);
-        buf.forEach((_, i) => {
-            buf[i] = data.charCodeAt(i);
+        return new Promise<Uint8Array>((resolve) => {
+            const data = String(m);
+            const buf = new Uint8Array(data.length);
+            buf.forEach((_, i) => {
+                buf[i] = data.charCodeAt(i);
+            });
+            resolve(buf);
         });
-        return buf;
     },
     decode: (m: MessageEvent) => {
         const buff = m.data as ArrayBuffer;
@@ -104,8 +106,8 @@ class App extends React.Component<IProps, any> {
                         <Components.HTitle>Handlers</Components.HTitle>
                         {Object.keys(state.ws3.handlers).map((key, index) =>
                             <Components.HItem key={index}>
-                            {key}<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;{state.ws3.handlers[key].toString()}
+                                {key}<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;{state.ws3.handlers[key].toString()}
                             </Components.HItem>)}
                     </Components.Handlers>
                 </div>
